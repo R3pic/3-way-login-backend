@@ -1,9 +1,11 @@
 import 'dotenv/config';
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import indexRouter from './routers/indexRouter.js';
-import loginRouter from './routers/loginRouter.js';
-import signupRouter from './routers/signupRouter.js';
+import indexRouter from './index/indexRouter.js';
+import loginRouter from './login/loginRouter.js';
+import signupRouter from './signup/signupRouter.js';
+
+console.log(`사용한 버전: ${process.env.VERSION}`);
 
 const app = express()
     .use(express.json())
