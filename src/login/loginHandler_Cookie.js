@@ -1,5 +1,5 @@
 import { UserData } from '../users/users.data.js';
-import { CookieConfig } from '../config/CookieConfig.js';
+import { CookieConfig } from '../config/cookie.config.js';
 
 const login_process = (req, res) => {
     console.log("바디",req.body);
