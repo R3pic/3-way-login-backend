@@ -1,24 +1,24 @@
 import 'dotenv/config';
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import expressSession from 'express-session';
 import indexRouter from './index/indexRouter.js';
 import loginRouter from './login/loginRouter.js';
 import signupRouter from './signup/signupRouter.js';
+import logoutRouter from './logout/logoutRouter.js';
 
-console.log(`사용한 버전: ${process.env.VERSION}`);
+import { SessionConfig } from './config/SessionConfig.js';
+
+console.log(`로그인 관리 방식: ${process.env.VERSION}`);
 
 const app = express()
     .use(express.json())
     .use(express.urlencoded({ extended: true }))
     .use(express.static('public'))
     .use(cookieParser())
+    .use(expressSession(SessionConfig))
     .use('/', indexRouter)
     .use('/login', loginRouter)
+    .use('/logout', logoutRouter)
     .use('/signup', signupRouter)
-    .get('/logout', (req, res) => {
-        console.log("쿠키",req.cookies);
-
-        res.clearCookie('user');
-        res.send("로그아웃 되었습니다.");
-    })
     .listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));

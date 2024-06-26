@@ -22,7 +22,6 @@ signupRouter
         }
         else {
             UserData.createUser(user);
-            // res.cookie('user', username); 회원가입 후 자동 로그인 되지 않도록 주석처리
             res.redirect('/login');
         }
     });
