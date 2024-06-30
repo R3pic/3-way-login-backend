@@ -18,13 +18,13 @@ const app = express()
     .use(express.urlencoded({ extended: true }))
     .use(express.static('public'))
     .use(cookieParser())
-    .use(expressSession({
+    .use(process.env.VERSION === "session" ? expressSession({
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
         cookie: { maxAge: 60000 },
         store: new SaveFileStore({ path: './sessions' })
-    }))
+    }) : (req, res, next) => next())
     .use('/', indexRouter)
     .use('/login', loginRouter)
     .use('/logout', logoutRouter)
