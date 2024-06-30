@@ -22,7 +22,7 @@ signupRouter
         }
         else {
             UserData.createUser(user);
-            res.redirect('/login');
+            res.send("회원가입 되었습니다.");
         }
     });
 

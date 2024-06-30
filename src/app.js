@@ -6,8 +6,10 @@ import indexRouter from './index/indexRouter.js';
 import loginRouter from './login/loginRouter.js';
 import signupRouter from './signup/signupRouter.js';
 import logoutRouter from './logout/logoutRouter.js';
+import FileStore from 'session-file-store';
+import Session from 'express-session';
 
-import { SessionConfig } from './config/SessionConfig.js';
+const SaveFileStore = FileStore(Session);
 
 console.log(`로그인 관리 방식: ${process.env.VERSION}`);
 
@@ -16,7 +18,13 @@ const app = express()
     .use(express.urlencoded({ extended: true }))
     .use(express.static('public'))
     .use(cookieParser())
-    .use(expressSession(SessionConfig))
+    .use(expressSession({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: true,
+        cookie: { maxAge: 60000 },
+        store: new SaveFileStore({ path: './sessions' })
+    }))
     .use('/', indexRouter)
     .use('/login', loginRouter)
     .use('/logout', logoutRouter)
