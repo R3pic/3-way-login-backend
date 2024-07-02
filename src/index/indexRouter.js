@@ -8,8 +8,7 @@ const IndexHandler = HandlerSelecter.IndexHandlerSelect();
 
 indexRouter
     .get('/', (req, res) => {
-        const message = IndexHandler.getMessage(req);
-        res.send(message);
+        IndexHandler.Message(req, res);
     });
 
 export default indexRouter;

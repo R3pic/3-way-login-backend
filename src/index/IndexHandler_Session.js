@@ -1,4 +1,5 @@
-const getMessage = (req) => {
+const Message = (req, res) => {
+    console.log("인덱스 핸들러 (세션 버전)")
     console.log("현재 세션 정보 : ", req.session);
     const user = req.session.user;
     console.log("유저", user);
@@ -10,13 +11,14 @@ const getMessage = (req) => {
     const loginedmessage = `안녕하세요! ${username}님! 세션에 저장된 데이터 : ${content}`;
 
     if (!user) {
-        return unloginedmessage;
+        res.send(unloginedmessage);
+        return;
     }
 
-
-    return user.authorized ? loginedmessage : unloginedmessage;
+    const message = user.authorized ? loginedmessage : unloginedmessage;
+    res.send(message);
 }
 
 export const IndexHandler_Session = {
-    getMessage,
+    Message,
 }

@@ -1,6 +1,6 @@
 import { jwtAuth } from '../util/jwtUtils.js';
 
-const getMessage = (req) => {
+const Message = (req, res) => {
     const { access_token } = req.cookies; // 원래는 헤더의 Authorization에서 가져와야 함
 
     const unloginedmessage = '로그인이 필요합니다.';
@@ -8,23 +8,27 @@ const getMessage = (req) => {
     const expiredtokenmessage = '토큰이 만료되었습니다.';
 
     if (!access_token) {
-        return unloginedmessage;
+        res.send(unloginedmessage);
+        return;
     }
 
     const decoded = jwtAuth(access_token);
 
     if (decoded === 'invalid') {
-        return invalidtokenmessage;
+        res.send(invalidtokenmessage);
+        return;
     }
     if (decoded === 'expired') {
-        return expiredtokenmessage;
+        res.send(expiredtokenmessage);
+        return;
     }
 
     const { name, data } = decoded;
 
-    return `안녕하세요! ${name}님! Payload에 저장된 데이터 : ${data}`;
+    const message = `안녕하세요! ${name}님! Payload에 저장된 데이터 : ${data}`;
+    res.send(message);
 }
 
 export const IndexHandler_JWT = {
-    getMessage,
+    Message,
 }

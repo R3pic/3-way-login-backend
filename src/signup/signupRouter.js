@@ -20,10 +20,9 @@ signupRouter
             res.send("이미 존재하는 회원입니다.");
             return;
         }
-        else {
-            UserData.createUser(user);
-            res.send("회원가입 되었습니다.");
-        }
+
+        UserData.createUser(user);
+        res.send("회원가입 되었습니다.");
     });
 
 export default signupRouter;

@@ -9,10 +9,10 @@ export const jwtAuth = (access_token) => {
         console.log("토큰 검증 결과", decoded)
         return decoded;
     } catch (error) {
-        if (error.name === 'TokenExpiredError') {
+        if (error.name === 'TokenExpiredError') { // 토큰 만료
             return 'expired';
         }
-        if (error.name === 'JsonWebTokenError') {
+        if (error.name === 'JsonWebTokenError') { // 토큰 위조
             return 'invalid';
         }
     }

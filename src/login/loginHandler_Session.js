@@ -9,13 +9,13 @@ const login_process = (req, res) => {
     const { username, password } = req.body;
     const user = UserData.getUser(username);
 
-    if (req.session.user) {
-        res.send("이미 로그인 되어 있습니다.");
+    if (!user) {
+        res.send("가입되지 않은 회원입니다.");
         return;
     }
 
-    if (!user) {
-        res.send("존재하지 않는 사용자입니다.");
+    if (req.session.user && req.session.user.authorized) {
+        res.send("이미 로그인 되어 있습니다.");
         return;
     }
 
@@ -24,9 +24,9 @@ const login_process = (req, res) => {
         return;
     }
 
+    // 세션에 로그인 정보 저장
     req.session.user = {
         name: username,
-        pw: password,
         authorized: true,
         data: "내가 원하는 데이터 넣어버리기",
     };

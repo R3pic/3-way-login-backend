@@ -15,38 +15,35 @@ import { logoutHandler_JWT } from '../logout/logoutHandler_JWT.js';
 // import { signupHandler_Session } from '../signup/signupHandler_Session.js';
 
 const IndexHandlerSelect = () => {
-    if (process.env.VERSION === 'cookie') {
-        return IndexHandler_Cookie;
-    }
-    else if (process.env.VERSION === 'session'){
-        return IndexHandler_Session;
-    }
-    else if (process.env.VERSION === 'jwt'){
-        return IndexHandler_JWT;
+    switch (process.env.VERSION) {
+        case 'cookie':
+            return IndexHandler_Cookie;
+        case 'session':
+            return IndexHandler_Session;
+        case 'jwt':
+            return IndexHandler_JWT;
     }
 }
 
 const LoginHandlerSelect = () => {
-    if (process.env.VERSION === 'cookie') {
-        return loginHandler_Cookie;
-    }
-    else if (process.env.VERSION === 'session'){
-        return loginHandler_Session;
-    } 
-    else if (process.env.VERSION === 'jwt'){
-        return loginHandler_JWT;
+    switch (process.env.VERSION) {
+        case 'cookie':
+            return loginHandler_Cookie;
+        case 'session':
+            return loginHandler_Session;
+        case 'jwt':
+            return loginHandler_JWT;
     }
 }
 
 const LogoutHandlerSelect = () => {
-    if (process.env.VERSION === 'cookie') {
-        return logoutHandler_Cookie;
-    }
-    else if (process.env.VERSION === 'session'){
-        return logoutHandler_Session;
-    }
-    else if (process.env.VERSION === 'jwt'){
-        return logoutHandler_JWT;
+    switch (process.env.VERSION) {
+        case 'cookie':
+            return logoutHandler_Cookie;
+        case 'session':
+            return logoutHandler_Session;
+        case 'jwt':
+            return logoutHandler_JWT;
     }
 }
 
