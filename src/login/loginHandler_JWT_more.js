@@ -1,6 +1,6 @@
 import { UserData } from '../users/users.data.js';
-import { CookieConfig } from '../config/cookie.config.js';
 import { JWTUtils } from '../util/jwtUtils.js';
+import { CookieConfig } from '../config/cookie.config.js';
 
 const login_process = (req, res) => {
     const { username, password } = req.body;
@@ -17,12 +17,14 @@ const login_process = (req, res) => {
         return;
     }
 
-    const token = JWTUtils.getAccessToken({ name: username, data: '내가 넣고 싶은 데이터' });
+    const AccessToken = JWTUtils.getAccessToken({ name: username, data: '내가 넣고 싶은 데이터' });
+    const RefreshToken = JWTUtils.getRefreshToken({ name: username });
 
-    res.cookie('access_token', token, CookieConfig);
+    res.cookie('access_token', AccessToken, CookieConfig);
+    res.cookie('refresh_token', RefreshToken, CookieConfig);
     res.send('로그인 성공');
 }
 
-export const loginHandler_JWT = {
+export const loginHandler_JWT_more = {
     login_process
 }

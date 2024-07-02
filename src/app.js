@@ -6,6 +6,7 @@ import indexRouter from './index/indexRouter.js';
 import loginRouter from './login/loginRouter.js';
 import signupRouter from './signup/signupRouter.js';
 import logoutRouter from './logout/logoutRouter.js';
+import refreshRouter from './refresh/refreshRouter.js';
 import FileStore from 'session-file-store';
 import { SessionConfig } from './config/SessionConfig.js';
 
@@ -23,4 +24,5 @@ const app = express()
     .use('/login', loginRouter)
     .use('/logout', logoutRouter)
     .use('/signup', signupRouter)
+    .use('/refresh', refreshRouter)
     .listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));

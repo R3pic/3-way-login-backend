@@ -1,4 +1,14 @@
-export const jwtConfig = {
-    expiresIn: "1m", // 1분
-    issuer: "R3" // 발급자
+const accessTokenConfig = {
+    expiresIn: "1m",
+    issuer: "R3"
+};
+
+const refreshTokenConfig = {
+    expiresIn: "1h",
+    issuer: "R3"
+};
+
+export const JWTConfig = {
+    accessTokenConfig,
+    refreshTokenConfig,
 }

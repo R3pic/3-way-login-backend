@@ -1,4 +1,4 @@
-import { jwtAuth } from '../util/jwtUtils.js';
+import { JWTUtils } from '../util/jwtUtils.js';
 
 const Message = (req, res) => {
     const { access_token } = req.cookies; // 원래는 헤더의 Authorization에서 가져와야 함
@@ -12,18 +12,20 @@ const Message = (req, res) => {
         return;
     }
 
-    const decoded = jwtAuth(access_token);
+    const decoded = JWTUtils.AccessTokenVerify(access_token);
 
-    if (decoded === 'invalid') {
-        res.send(invalidtokenmessage);
-        return;
-    }
-    if (decoded === 'expired') {
-        res.send(expiredtokenmessage);
-        return;
+    if (!decoded.valid){
+        if (decoded.payload === 'invalid') {
+            res.send(invalidtokenmessage);
+            return;
+        }
+        if (decoded.payload === 'expired') {
+            res.send(expiredtokenmessage);
+            return;
+        }
     }
 
-    const { name, data } = decoded;
+    const { name, data } = decoded.payload;
 
     const message = `안녕하세요! ${name}님! Payload에 저장된 데이터 : ${data}`;
     res.send(message);

@@ -6,7 +6,9 @@
   "scripts": {
     "start:c": "cross-env VERSION=cookie node .",
     "start:s": "cross-env VERSION=session node .",
-    "start:j": "cross-env VERSION=jwt node ."
+    "start:j": "cross-env VERSION=jwt node .",
+    "start:jf": "cross-env VERSION=jwt-refresh node .",
+    "start": "node ."
   },
   "keywords": [],
   "author": "",
