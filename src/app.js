@@ -14,7 +14,7 @@ const SaveFileStore = FileStore(expressSession);
 
 console.log(`로그인 관리 방식: ${process.env.VERSION}`);
 
-const app = express()
+export const app = express()
     .use(express.json())
     .use(express.urlencoded({ extended: true }))
     .use(express.static('public'))

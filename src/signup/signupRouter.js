@@ -17,12 +17,12 @@ signupRouter
         const user = new User(username, password);
 
         if (UserData.hasUser(username)) {
-            res.send("이미 존재하는 회원입니다.");
+            res.status(409).send({ message: "이미 존재하는 회원입니다." });
             return;
         }
 
         UserData.createUser(user);
-        res.send("회원가입 되었습니다.");
+        res.status(201).send({ message: "회원가입 성공" });
     });
 
 export default signupRouter;

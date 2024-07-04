@@ -8,12 +8,12 @@ const login_process = (req, res) => {
     const user = UserData.getUser(username);
 
     if (!user) {
-        res.send("존재하지 않는 사용자입니다.");
+        res.status(401).send({ message: "가입되지 않은 회원입니다." });
         return;
     }
 
     if (user.password !== password) {
-        res.send("비밀번호가 틀렸습니다.");
+        res.status(401).send({ message: "비밀번호가 틀렸습니다."});
         return;
     }
 
@@ -22,7 +22,7 @@ const login_process = (req, res) => {
 
     res.cookie('access_token', AccessToken, CookieConfig);
     res.cookie('refresh_token', RefreshToken, CookieConfig);
-    res.send('로그인 성공');
+    res.status(200).send({ message: "로그인 성공" });
 }
 
 export const loginHandler_JWT_more = {

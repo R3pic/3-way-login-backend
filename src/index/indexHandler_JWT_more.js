@@ -8,7 +8,7 @@ const Message = (req, res) => {
             TryNewAccessToken(refresh_token, res);
             return;
         }
-        res.send('로그인이 필요한 요청입니다.');
+        res.status(401).send({ message: "액세스 토큰이 존재하지 않습니다. 로그인이 필요합니다."});
         return;
     }
 
@@ -20,25 +20,20 @@ const Message = (req, res) => {
             TryNewAccessToken(refresh_token, res);
             return;
         }
-        res.send('로그인이 필요한 요청입니다.');
+        res.status(401).send({ message: "액세스 토큰이 유효하지 않습니다. 로그인이 필요합니다."});
         return;
     }
 
     const { name, data } = decoded.payload;
 
     const message = `안녕하세요! ${name}님! Payload에 저장된 데이터 : ${data}`;
-    res.send(message);
+    res.status(200).send({ message : message });
 }
 
 const TryNewAccessToken = (refresh_token, res) => {
-    if (!refresh_token) {
-        res.send('리프레시 토큰이 존재하지 않습니다. 로그인이 필요합니다.');
-        return;
-    }
-
     const decoded = JWTUtils.RefreshTokenVerify(refresh_token);
     if (!decoded.valid) {
-        res.send('리프레시 토큰이 유효하지 않습니다. 로그인이 필요합니다.');
+        res.status(401).send({ message: '리프레시 토큰이 유효하지 않습니다. 로그인이 필요합니다.' });
         return;
     }
     const { name } = decoded.payload;
@@ -51,7 +46,7 @@ const TryNewAccessToken = (refresh_token, res) => {
     if (newAccessTokenDecoded) {
         const { name, data } = newAccessTokenDecoded.payload;
         const message = `안녕하세요! ${name}님! Payload에 저장된 데이터 : ${data}`;
-        res.send(message);
+        res.status(200).send({ message : message });
     }
     return;
 }
